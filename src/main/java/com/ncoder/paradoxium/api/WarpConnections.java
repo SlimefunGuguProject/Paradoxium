@@ -31,13 +31,13 @@ public class WarpConnections {
     private int page = 1;
 
     public void openPlateSelector(Player p, UUID uuid, Block b, BlockMenuPreset preset, BlockMenu bm) {
-        ChestMenu menu = new ChestMenu(ChatColor.GOLD + "Select Plates");
+        ChestMenu menu = new ChestMenu(ChatColor.GOLD + "选择板材");
 
         for (int i : BORDER) {
             menu.addItem(i, new CustomItemStack(Material.GRAY_STAINED_GLASS_PANE, Constants.EMPTY), ChestMenuUtils.getEmptyClickHandler());
         }
 
-        menu.addItem(CANCEL, new CustomItemStack(Material.BARRIER, "&4Cancel"));
+        menu.addItem(CANCEL, new CustomItemStack(Material.BARRIER, "&4取消"));
         menu.addMenuClickHandler(CANCEL, (pl, slot, item, action) -> {
             pl.closeInventory();
             preset.newInstance(bm, b);
@@ -50,12 +50,12 @@ public class WarpConnections {
         createPage(uuid, menu, b, preset, bm);
 
         if (amount == 1) {
-            menu.addItem(PREVIOUS, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&f◄ &6Previous", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
-            menu.addItem(NEXT, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&6Next &f►", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
+            menu.addItem(PREVIOUS, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&f◄ &6上一页", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
+            menu.addItem(NEXT, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&6下一页 &f►", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
         } else {
-            if (page <= 1) menu.addItem(PREVIOUS, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&f◄ &6Previous", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
+            if (page <= 1) menu.addItem(PREVIOUS, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&f◄ &6上一页", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
             else {
-                menu.addItem(PREVIOUS, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&f◄ &6Previous", "("+page+"/"+amount+")"));
+                menu.addItem(PREVIOUS, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&f◄ &6上一页", "("+page+"/"+amount+")"));
                 menu.addMenuClickHandler(PREVIOUS, (pl, slot, item, action) -> {
                     page -= 1;
                     createPage(uuid, menu, b, preset, bm);
@@ -63,9 +63,9 @@ public class WarpConnections {
                 });
             }
 
-            if (page >= amount) menu.addItem(NEXT, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&6Next &f►", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
+            if (page >= amount) menu.addItem(NEXT, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, "&6下一页 &f►", "("+page+"/"+amount+")"), ChestMenuUtils.getEmptyClickHandler());
             else {
-                menu.addItem(NEXT, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&6Next &f►", "("+page+"/"+amount+")"));
+                menu.addItem(NEXT, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&6下一页 &f►", "("+page+"/"+amount+")"));
                 menu.addMenuClickHandler(NEXT, (pl, slot, item, action) -> {
                     page += 1;
                     createPage(uuid, menu, b, preset, bm);
@@ -91,7 +91,7 @@ public class WarpConnections {
                     String name = BlockStorage.getLocationInfo(loc, "name");
                     Material material = WarpPlate.materials[Integer.parseInt(BlockStorage.getLocationInfo(loc, "material"))];
 
-                    menu.addItem(i, new CustomItemStack(material, !name.equals("") ? name : Constants.EMPTY, "&bWorld&8: &7" + loc.getWorld().getName(), "&bCoordinates&8: &7" + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ()));
+                    menu.addItem(i, new CustomItemStack(material, !name.equals("") ? name : Constants.EMPTY, "&b世界&8: &7" + loc.getWorld().getName(), "&b坐标&8: &7" + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ()));
                     menu.addMenuClickHandler(i, (pl, s, item, action) -> {
                         pl.closeInventory();
                         BlockStorage.addBlockInfo(b, "destination", plate);
