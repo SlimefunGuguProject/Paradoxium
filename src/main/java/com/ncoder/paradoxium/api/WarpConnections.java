@@ -1,9 +1,9 @@
-package com.ncoder.paradox.api;
+package com.ncoder.paradoxium.api;
 
-import com.ncoder.paradox.ParadoxConfig;
-import com.ncoder.paradox.items.blocks.WarpPlate;
-import com.ncoder.paradox.utils.Strings;
-import com.ncoder.paradox.utils.Utils;
+import com.ncoder.paradoxium.ParadoxConfig;
+import com.ncoder.paradoxium.items.blocks.WarpPlate;
+import com.ncoder.paradoxium.utils.Constants;
+import com.ncoder.paradoxlib.utils.ConversionUtil;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
@@ -20,8 +20,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class WarpConnections {
-    private final int[] border = { 0, 1, 2, 3, 5, 6, 7, 8, 45, 47, 48, 49, 50, 51, 53 };
-    private final int[] inventory = { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 };
+
+    private final int[] BORDER = { 0, 1, 2, 3, 5, 6, 7, 8, 45, 47, 48, 49, 50, 51, 53 };
+    private final int[] INVENTORY = { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 };
 
     private final int CANCEL = 4;
     private final int PREVIOUS = 46;
@@ -32,8 +33,8 @@ public class WarpConnections {
     public void openPlateSelector(Player p, UUID uuid, Block b, BlockMenuPreset preset, BlockMenu bm) {
         ChestMenu menu = new ChestMenu(ChatColor.GOLD + "Select Plates");
 
-        for (int i : border) {
-            menu.addItem(i, new CustomItemStack(Material.GRAY_STAINED_GLASS_PANE, Strings.EMPTY), ChestMenuUtils.getEmptyClickHandler());
+        for (int i : BORDER) {
+            menu.addItem(i, new CustomItemStack(Material.GRAY_STAINED_GLASS_PANE, Constants.EMPTY), ChestMenuUtils.getEmptyClickHandler());
         }
 
         menu.addItem(CANCEL, new CustomItemStack(Material.BARRIER, "&4Cancel"));
@@ -81,16 +82,16 @@ public class WarpConnections {
 
         if (ParadoxConfig.WARPS.contains(uuid + ".warps." + l)) {
             List<String> plates = ParadoxConfig.WARPS.getStringList(uuid + ".warps." + l);
-            int counter = (page - 1) * inventory.length;
-            for (int i : inventory) {
+            int counter = (page - 1) * INVENTORY.length;
+            for (int i : INVENTORY) {
                 try {
                     final String plate = plates.get(counter);
-                    Location loc = Utils.StringLocation(plate);
+                    Location loc = ConversionUtil.LOCATION.toLocation(plate);
 
                     String name = BlockStorage.getLocationInfo(loc, "name");
                     Material material = WarpPlate.materials[Integer.parseInt(BlockStorage.getLocationInfo(loc, "material"))];
 
-                    menu.addItem(i, new CustomItemStack(material, !name.equals("") ? name : Strings.EMPTY, "&bWorld&8: &7" + loc.getWorld().getName(), "&bCoordinates&8: &7" + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ()));
+                    menu.addItem(i, new CustomItemStack(material, !name.equals("") ? name : Constants.EMPTY, "&bWorld&8: &7" + loc.getWorld().getName(), "&bCoordinates&8: &7" + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ()));
                     menu.addMenuClickHandler(i, (pl, s, item, action) -> {
                         pl.closeInventory();
                         BlockStorage.addBlockInfo(b, "destination", plate);
@@ -104,7 +105,7 @@ public class WarpConnections {
                 counter++;
             }
         } else {
-            for (int i : inventory) {
+            for (int i : INVENTORY) {
                 menu.addMenuClickHandler(i, ChestMenuUtils.getEmptyClickHandler());
             }
         }
@@ -116,9 +117,10 @@ public class WarpConnections {
 
         if (ParadoxConfig.WARPS.contains(uuid + ".warps." + l)) {
             List<String> plates = ParadoxConfig.WARPS.getStringList(uuid + ".warps." + l);
-            amount += plates.size() / inventory.length;
+            amount += plates.size() / INVENTORY.length;
         }
 
         return amount;
     }
+
 }
