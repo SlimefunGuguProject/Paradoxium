@@ -31,7 +31,7 @@ public class WarpConnections {
     private int page = 1;
 
     public void openPlateSelector(Player p, UUID uuid, Block b, BlockMenuPreset preset, BlockMenu bm) {
-        ChestMenu menu = new ChestMenu(ChatColor.GOLD + "选择板材");
+        ChestMenu menu = new ChestMenu(ChatColor.GOLD + "选择传送板");
 
         for (int i : BORDER) {
             menu.addItem(i, new CustomItemStack(Material.GRAY_STAINED_GLASS_PANE, Constants.EMPTY), ChestMenuUtils.getEmptyClickHandler());
