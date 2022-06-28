@@ -1,6 +1,6 @@
-# 悖论
-悖论是一个增加了方便的机器和更多物品的粘液科技4附属。
+# Paradoxium
+Paradoxium is a Slimefun4 Addon that adds convenient machines and new things.
 
-附属支持 1.16.x, 1.17.x 和 1.18.x 版本的Minecraft。
+Addon supports 1.16.x, 1.17.x and 1.18.x minecraft versions.
 
 ## :bulb: Features
