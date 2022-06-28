@@ -15,9 +15,9 @@ public final class Machines {
     public static final SlimefunItemStack WARP_CONNECTOR = new SlimefunItemStack(
             "WARP_CONNECTOR",
             Material.SMOOTH_STONE,
-            "&6Warp Connector",
+            "&6传送连接器",
             "",
-            "&7Used to connect warp plate."
+            "&7用于连接传送板"
     );
 
     public static void setup(Paradoxium plugin) {
