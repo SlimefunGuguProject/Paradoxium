@@ -3,4 +3,4 @@
 
 附属支持 1.16.x, 1.17.x 和 1.18.x 版本的Minecraft。
 
-## :bulb: Features
+## :bulb: 特点
