@@ -14,34 +14,34 @@ public final class Blocks {
     public static final SlimefunItemStack WARP_PLATE_100 = new SlimefunItemStack(
             "WARP_PLATE_100",
             Material.WHITE_CARPET,
-            "&6Warp Plate &7&l[&4&l100&7&l]",
+            "&6传送板 &7&l[&4&l100&7&l]",
             "",
-            "&6&lCrouch &7on the plate to teleport",
-            "&7to the other destination.",
+            "&6&l在板蹲下&7传送",
+            "&7到其他位置",
             "",
-            "&a&lDetection&7: &6100 &7Blocks"
+            "&a&l检测范围&7: &6100 &7格"
     );
 
     public static final SlimefunItemStack WARP_PLATE_500 = new SlimefunItemStack(
             "WARP_PLATE_500",
             Material.WHITE_CARPET,
-            "&6Warp Plate &7&l[&4&l500&7&l]",
+            "&6传送板 &7&l[&4&l500&7&l]",
             "",
-            "&6&lCrouch &7on the plate to teleport",
-            "&7to the other destination.",
+            "&6&l在板蹲下&7传送",
+            "&7到其他位置",
             "",
-            "&a&lDetection&7: &6500 &7Blocks"
+            "&a&l检测范围&7: &6500 &7格"
     );
 
     public static final SlimefunItemStack WARP_PLATE_1000 = new SlimefunItemStack(
             "WARP_PLATE_1000",
             Material.WHITE_CARPET,
-            "&6Warp Plate &7&l[&4&l1000&7&l]",
+            "&6传送板 &7&l[&4&l1000&7&l]",
             "",
-            "&6&lCrouch &7on the plate to teleport",
-            "&7to the other destination.",
+            "&6&l在板蹲下&7传送",
+            "&7到其他位置",
             "",
-            "&a&lDetection&7: &61000 &7Blocks"
+            "&a&l检测范围&7: &61000 &7格"
     );
 
     public static void setup(Paradoxium plugin) {
