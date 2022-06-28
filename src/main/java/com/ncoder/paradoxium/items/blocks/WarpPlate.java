@@ -116,7 +116,7 @@ public class WarpPlate extends ParadoxInventoryBlock {
     private void changeMaterial(@Nonnull BlockMenu menu, @Nonnull Block b) {
         Scheduler.run(() -> {
             int val = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "material"));
-            menu.replaceExistingItem(MATERIAL_SLOT, new CustomItemStack(materials[val], "&a物质", "", "&6&l左键 &7to 下一个.", "&6&l右键 &7上一个."));
+            menu.replaceExistingItem(MATERIAL_SLOT, new CustomItemStack(materials[val], "&aMaterial", "", "&6&lLeft Click &7to next.", "&6&lRight Click &7to previous."));
             b.setType(materials[val]);
         });
     }
@@ -135,7 +135,7 @@ public class WarpPlate extends ParadoxInventoryBlock {
             preset.addItem(i, new CustomItemStack(new ItemStack(Material.ORANGE_STAINED_GLASS_PANE), Constants.EMPTY),
                     (p, slot, item, action) -> false);
         }
-        preset.addItem(LINKED_SLOT, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6统计&7: &4未连接", "", "&6点击 &7重新识别最近的连接器"),
+        preset.addItem(LINKED_SLOT, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6Status&7: &4Unlinked", "", "&6Click &7to re-detect closest connectors"),
                 (p, slot, item, action) -> false);
 
         this.preset = preset;
@@ -178,7 +178,7 @@ public class WarpPlate extends ParadoxInventoryBlock {
     protected void onNewInstance(BlockMenu menu, Block b) {
         menu.addMenuClickHandler(NAME_SLOT, (p, slot, item, action) -> {
             p.closeInventory();
-            Utils.sendMessage(p, "请输入板的名称");
+            Utils.sendMessage(p, "Please enter plate name.");
             ChatInput.waitForPlayer(Paradoxium.instance(), p, msg -> {
                 BlockStorage.addBlockInfo(b.getLocation(), "name", msg);
                 onNewInstance(menu, b);
@@ -186,7 +186,7 @@ public class WarpPlate extends ParadoxInventoryBlock {
             });
             return false;
         });
-        menu.replaceExistingItem(NAME_SLOT, new CustomItemStack(Material.WHITE_STAINED_GLASS_PANE, "&6名称&7: " + (!BlockStorage.getLocationInfo(b.getLocation(), "name").equals("") ? BlockStorage.getLocationInfo(b.getLocation(), "name") : Constants.EMPTY)));
+        menu.replaceExistingItem(NAME_SLOT, new CustomItemStack(Material.WHITE_STAINED_GLASS_PANE, "&6Name&7: " + (!BlockStorage.getLocationInfo(b.getLocation(), "name").equals("") ? BlockStorage.getLocationInfo(b.getLocation(), "name") : Constants.EMPTY)));
 
         menu.addMenuClickHandler(LINKED_SLOT, (p, slot, item, action) -> {
             detectConnector(b);
@@ -194,9 +194,9 @@ public class WarpPlate extends ParadoxInventoryBlock {
             return false;
         });
         if (!BlockStorage.getLocationInfo(b.getLocation(), "connector").isEmpty()) {
-            menu.replaceExistingItem(LINKED_SLOT, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&6统计&7: &a已连接", "", "&6点击 &7重新识别最近的连接器"));
+            menu.replaceExistingItem(LINKED_SLOT, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&6Status&7: &aLinked", "", "&6Click &7to re-detect closest connectors"));
         } else {
-            menu.replaceExistingItem(LINKED_SLOT, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6统计&7: &4未连接", "", "&6点击 &7重新识别最近的连接器"));
+            menu.replaceExistingItem(LINKED_SLOT, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6Status&7: &4Unlinked", "", "&6Click &7to re-detect closest connectors"));
         }
 
         menu.addMenuClickHandler(DESTINATION_SLOT, (p, slot, item, action) -> {
@@ -206,9 +206,9 @@ public class WarpPlate extends ParadoxInventoryBlock {
         if (!BlockStorage.getLocationInfo(b.getLocation(), "destination").isEmpty()) {
             Location loc = ConversionUtil.LOCATION.toLocation(BlockStorage.getLocationInfo(b.getLocation(), "destination"));
             Material mat = materials[Integer.parseInt(BlockStorage.getLocationInfo(loc, "material"))];
-            menu.replaceExistingItem(DESTINATION_SLOT, new CustomItemStack(mat, "&a目的地", "&b世界&8: &7" + loc.getWorld().getName(), "&b坐标&8: &7" + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ(), "", "&6点击 &7改变位置"));
+            menu.replaceExistingItem(DESTINATION_SLOT, new CustomItemStack(mat, "&aDestination", "&bWorld&8: &7" + loc.getWorld().getName(), "&bCoordinates&8: &7" + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ(), "", "&6Click &7to change destination."));
         } else {
-            menu.replaceExistingItem(DESTINATION_SLOT, new CustomItemStack(Material.BLACK_CARPET, "&a目的地", "&b世界&8: &7无", "&b坐标&8: &7无"));
+            menu.replaceExistingItem(DESTINATION_SLOT, new CustomItemStack(Material.BLACK_CARPET, "&aDestination", "&bWorld&8: &7None", "&bCoordinates&8: &7None"));
         }
 
         changeMaterial(menu, b);
